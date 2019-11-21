@@ -6,7 +6,7 @@ from math import pi, sin, cos, acos
 # The global average radius of the Earth in kilometers
 EARTH_RADIUS_KM = 6371
 
-# Default values for command line arguments
+# Default values for command line arguments (default is 100km from Intercom's SF office)
 CUSTOMER_LIST_FILE_NAME = 'Customer List.txt'
 DISTANCE_TO_CENTER = 100
 CENTER_LAT = 37.788802
@@ -70,10 +70,10 @@ def parse_args(args):
     Parse the command line arguments.
     """
     parser = argparse.ArgumentParser()
-    parser.add_argument('-f', '--customer_data_filename', default=CUSTOMER_LIST_FILE_NAME, help='File with customer data')
-    parser.add_argument('-lat', '--latitude', default=CENTER_LAT, type=float, help='Latitude of the center location to be compared with the customer location')
-    parser.add_argument('-long', '--longitude', default=CENTER_LONG, type=float, help='Longitude of the center location to be compared with the customer location')
-    parser.add_argument('-d', '--distance', default=DISTANCE_TO_CENTER, type=float, help='Include all customers within this distance of the center')
+    parser.add_argument('-f', '--customer_data_filename', default=CUSTOMER_LIST_FILE_NAME, help='File with customer data (default is Intercom customer data)')
+    parser.add_argument('-lat', '--latitude', default=CENTER_LAT, type=float, help='Latitude of the center location to be compared with the customer location (default is the latitude of the Intercom SF office)')
+    parser.add_argument('-long', '--longitude', default=CENTER_LONG, type=float, help='Longitude of the center location to be compared with the customer location (default is the longitude of the Intercom SF office)')
+    parser.add_argument('-d', '--distance', default=DISTANCE_TO_CENTER, type=float, help='Include all customers within this distance of the center in km (default is 100)')
     return parser.parse_args(args)
 
 def main():
