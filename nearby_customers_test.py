@@ -52,8 +52,6 @@ class TestRunner(unittest.TestCase):
         center_lat = 34.5466
         center_long = -120.4843
 
-        # print(get_nearby_customers(customer_list, distance_to_center, center_lat, center_long))
-
         self.assertEqual(get_nearby_customers(customer_list, 0, center_lat, center_long), [])
         self.assertEqual(get_nearby_customers(customer_list, 600, center_lat, center_long), [(23, 'Eoin Gallagher')])
         self.assertEqual(get_nearby_customers(customer_list, 1000, center_lat, center_long), [(23, 'Eoin Gallagher'), (25, 'David Behan')])
