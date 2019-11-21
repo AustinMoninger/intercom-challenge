@@ -70,10 +70,14 @@ def parse_args(args):
     Parse the command line arguments.
     """
     parser = argparse.ArgumentParser()
-    parser.add_argument('-f', '--customer_data_filename', default=CUSTOMER_LIST_FILE_NAME, help='File with customer data (default is Intercom customer data)')
-    parser.add_argument('-lat', '--latitude', default=CENTER_LAT, type=float, help='Latitude of the center location to be compared with the customer location (default is the latitude of the Intercom SF office)')
-    parser.add_argument('-long', '--longitude', default=CENTER_LONG, type=float, help='Longitude of the center location to be compared with the customer location (default is the longitude of the Intercom SF office)')
-    parser.add_argument('-d', '--distance', default=DISTANCE_TO_CENTER, type=float, help='Include all customers within this distance of the center in km (default is 100)')
+    parser.add_argument('-f', '--customer_data_filename', default=CUSTOMER_LIST_FILE_NAME, 
+                        help='File with customer data (default is Intercom customer data)')
+    parser.add_argument('-lat', '--latitude', default=CENTER_LAT, type=float, 
+                        help='Latitude of the center location to be compared with the customer location (default is the latitude of the Intercom SF office)')
+    parser.add_argument('-long', '--longitude', default=CENTER_LONG, type=float, 
+                        help='Longitude of the center location to be compared with the customer location (default is the longitude of the Intercom SF office)')
+    parser.add_argument('-d', '--distance', default=DISTANCE_TO_CENTER, type=float, 
+                        help='Include all customers within this distance of the center in km (default is 100)')
     return parser.parse_args(args)
 
 def main():
@@ -82,8 +86,14 @@ def main():
     nearby_customers = get_nearby_customers(customer_list, parser.distance, parser.latitude, parser.longitude)
     sorted_customers = get_sorted_customers_by_user_id(nearby_customers)
 
-    for user_id, name in sorted_customers:
-        print(user_id, name)
+    if sorted_customers:
+        print('\nHere are all the customers within {} km of {}, {}! 🌍\n'.format(
+            parser.distance, parser.latitude, parser.longitude))
+        for user_id, name in sorted_customers:
+            print(user_id, name)
+    else:
+        print('\nLooks like there are no customers within {} km of {}, {}. 😢\n'.format(
+            parser.distance, parser.latitude, parser.longitude))
 
 
 if __name__ == '__main__':
